@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <title>我的订单 - 外卖省钱助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app orders-app">
+    <header class="page-header">
+      <a href="profile.html" class="back-btn" aria-label="返回">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+      <h1 class="page-title">我的订单</h1>
+      <span class="header-placeholder"></span>
+    </header>
+
+    <div class="order-tabs" id="orderTabs">
+      <button class="order-tab active" data-status="all">全部</button>
+      <button class="order-tab" data-status="delivering">进行中</button>
+      <button class="order-tab" data-status="completed">已完成</button>
+    </div>
+
+    <div class="order-list" id="orderList"></div>
+
+    <div class="order-detail-panel" id="orderDetail" hidden>
+      <div class="order-detail-overlay" id="detailOverlay"></div>
+      <div class="order-detail-sheet">
+        <div class="sheet-handle"></div>
+        <div id="detailContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/order-store.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+</html>
