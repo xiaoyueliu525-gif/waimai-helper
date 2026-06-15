@@ -31,7 +31,8 @@ html {
 
 body {
   font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
+  background:
+    linear-gradient(180deg, #FFF7F2 0%, #F7F8FA 32%, #EEF7F4 100%);
   color: var(--text);
   line-height: 1.5;
   min-height: 100dvh;
@@ -43,15 +44,17 @@ body {
   max-width: 430px;
   margin: 0 auto;
   min-height: 100dvh;
-  background: var(--bg);
+  background: linear-gradient(180deg, #FFF7F2 0, var(--bg) 310px);
   position: relative;
   padding-bottom: calc(72px + var(--safe-bottom));
 }
 
 /* ===== 顶部 Header ===== */
 .header {
-  background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 50%, #FFB347 100%);
-  padding: 48px 20px 32px;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.28), transparent 24%),
+    linear-gradient(135deg, #FF6B35 0%, #FF8C42 52%, #FFC15A 100%);
+  padding: 48px 20px 40px;
   border-radius: 0 0 28px 28px;
   position: relative;
   overflow: hidden;
@@ -172,15 +175,57 @@ body {
 .greeting-main {
   display: block;
   color: #fff;
-  font-size: 1.75rem;
+  font-size: 1.875rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+
+.hero-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-panel strong,
+.hero-panel span {
+  display: block;
+}
+
+.hero-panel strong {
+  font-size: 0.9375rem;
+}
+
+.hero-panel div span {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.75rem;
+}
+
+.hero-panel-badge {
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--primary-dark);
+  font-size: 0.6875rem;
+  font-weight: 800;
 }
 
 /* ===== 搜索区域 ===== */
 .search-section {
   padding: 0 16px;
-  margin-top: -20px;
+  margin-top: -24px;
   position: relative;
   z-index: 2;
 }
@@ -189,9 +234,10 @@ body {
   display: flex;
   align-items: center;
   background: var(--surface);
-  border-radius: var(--radius);
-  padding: 4px 4px 4px 16px;
-  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 18px;
+  padding: 5px 5px 5px 16px;
+  box-shadow: 0 14px 34px rgba(255, 107, 53, 0.18), 0 4px 12px rgba(26, 26, 46, 0.08);
   gap: 8px;
 }
 
@@ -221,8 +267,8 @@ body {
   background: var(--primary);
   color: #fff;
   border: none;
-  border-radius: 12px;
-  padding: 10px 18px;
+  border-radius: 14px;
+  padding: 11px 18px;
   font-size: 0.875rem;
   font-weight: 600;
   font-family: inherit;
@@ -251,8 +297,8 @@ body {
 
 .hot-tag {
   flex-shrink: 0;
-  background: var(--surface);
-  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.86);
+  color: #5B6472;
   font-size: 0.75rem;
   padding: 6px 14px;
   border-radius: 20px;
@@ -545,25 +591,60 @@ body {
   margin-top: 20px;
 }
 
+.compare-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.compare-heading .result-group-title {
+  margin: 0 0 2px;
+}
+
+.compare-heading h3 {
+  font-size: 1rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.compare-heading > span {
+  max-width: 120px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #ECFDF5;
+  color: #047857;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ===== 平台比价卡片 ===== */
 .platform-cards {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .platform-card {
-  border-radius: var(--radius);
+  border: 1px solid rgba(229, 231, 235, 0.82);
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 12px 28px rgba(26, 26, 46, 0.08);
   position: relative;
+  background: var(--surface);
+  transition: transform 0.18s, box-shadow 0.18s;
 }
 
 .platform-card-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
+  padding: 12px 14px 11px;
 }
 
 .platform-logo {
@@ -587,7 +668,7 @@ body {
 .platform-best {
   font-size: 0.625rem;
   font-weight: 700;
-  background: #FF3B30;
+  background: #10B981;
   color: #fff;
   padding: 3px 8px;
   border-radius: 10px;
@@ -595,7 +676,14 @@ body {
 
 .platform-card-body {
   background: var(--surface);
-  padding: 0 14px 52px;
+  padding: 14px;
+}
+
+.platform-main-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
 }
 
 .platform-shop {
@@ -606,13 +694,15 @@ body {
 
 .platform-price-row {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 2px;
-  margin-top: 6px;
+  margin-top: -2px;
 }
 
 .platform-price {
-  font-size: 1.5rem;
+  font-size: 1.55rem;
+  line-height: 1;
   font-weight: 800;
   color: #FF3B30;
 }
@@ -650,23 +740,58 @@ body {
   margin-top: 8px;
 }
 
+.price-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #F8FAFC;
+}
+
+.price-breakdown span {
+  min-width: 0;
+  color: #64748B;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.price-breakdown .save {
+  color: #059669;
+  font-weight: 800;
+}
+
+.platform-meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.platform-meta-row span:last-child {
+  text-align: right;
+}
+
 .platform-go-btn {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
   border: none;
-  border-radius: 18px;
-  padding: 8px 18px;
+  border-radius: 12px;
+  width: calc(100% - 28px);
+  margin: 0 14px 14px;
+  padding: 10px 18px;
   font-size: 0.8125rem;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
   color: #fff;
-  background: rgba(0, 0, 0, 0.75);
+  background: #111827;
 }
 
 .platform-card:active {
-  transform: scale(0.99);
+  transform: scale(0.985);
+  box-shadow: 0 8px 20px rgba(26, 26, 46, 0.1);
 }
 
 .platform-meituan .platform-card-header {
@@ -988,7 +1113,8 @@ body {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 107, 53, 0.12);
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.04);
 }
 
 .coupon-tab.active {
@@ -1349,16 +1475,21 @@ body {
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px 8px;
+  gap: 10px;
 }
 
 .category-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  padding: 10px 4px;
+  border: 1px solid rgba(229, 231, 235, 0.72);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 6px 16px rgba(26, 26, 46, 0.04);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1367,13 +1498,13 @@ body {
 }
 
 .category-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.625rem;
+  font-size: 1.45rem;
   transition: box-shadow 0.2s;
 }
 
@@ -1382,7 +1513,7 @@ body {
 }
 
 .category-name {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text);
   font-weight: 500;
   text-align: center;
@@ -1406,15 +1537,16 @@ body {
 .deals-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .deal-card {
   display: flex;
   background: var(--surface);
-  border-radius: var(--radius-sm);
+  border: 1px solid rgba(229, 231, 235, 0.72);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 8px 22px rgba(26, 26, 46, 0.06);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1425,8 +1557,8 @@ body {
 }
 
 .deal-image {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  min-height: 104px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1440,7 +1572,7 @@ body {
 
 .deal-info {
   flex: 1;
-  padding: 12px 14px;
+  padding: 13px 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1496,7 +1628,7 @@ body {
   font-size: 0.6875rem;
   font-weight: 600;
   color: #fff;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #FF9D55);
   padding: 3px 8px;
   border-radius: 6px;
 }
@@ -1509,11 +1641,14 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.94);
   display: flex;
   justify-content: space-around;
-  padding: 8px 0 calc(8px + var(--safe-bottom));
-  border-top: 1px solid var(--border);
+  padding: 8px 10px calc(8px + var(--safe-bottom));
+  border-top: 1px solid rgba(229, 231, 235, 0.82);
+  box-shadow: 0 -10px 28px rgba(26, 26, 46, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 50;
 }
 
@@ -1526,8 +1661,10 @@ body {
   color: var(--text-muted);
   font-size: 0.625rem;
   font-weight: 500;
-  padding: 4px 12px;
-  transition: color 0.2s;
+  min-width: 68px;
+  padding: 6px 10px;
+  border-radius: 14px;
+  transition: color 0.2s, background 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1538,6 +1675,7 @@ body {
 
 .nav-item.active {
   color: var(--primary);
+  background: var(--primary-light);
 }
 
 /* ===== 发现页 ===== */

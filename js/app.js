@@ -133,9 +133,16 @@ function useDefaultAddress() {
 async function renderPlatformCards(keyword) {
   const offers = await PlatformCompare.getOffers(keyword, currentLocation);
   const bestPrice = PlatformCompare.getBestPrice(offers);
+  const locationLabel = currentLocation?.label || currentLocation?.address || '默认区域';
 
   return `
-    <p class="result-group-title">平台比价 · 「${keyword}」</p>
+    <div class="compare-heading">
+      <div>
+        <p class="result-group-title">平台比价</p>
+        <h3>「${keyword}」到手价参考</h3>
+      </div>
+      <span>${locationLabel}</span>
+    </div>
     <div class="platform-cards">
       ${offers
         .map(
@@ -147,21 +154,33 @@ async function renderPlatformCards(keyword) {
             ${Math.abs(p.price - bestPrice) < 0.01 ? '<span class="platform-best">最低价</span>' : ''}
           </div>
           <div class="platform-card-body">
-            <div class="platform-shop">${p.shop}</div>
-            <div class="platform-price-row">
-              <span class="platform-price">¥${p.price}</span>
-              <span class="platform-price-unit">起</span>
-            </div>
-            <div class="platform-tags">
-              <span class="platform-tag">${p.coupon}</span>
-              <span class="platform-tag muted">${p.delivery}</span>
+            <div class="platform-main-row">
+              <div>
+                <div class="platform-shop">${p.shop}</div>
+                <div class="platform-tags">
+                  <span class="platform-tag">${p.coupon}</span>
+                  <span class="platform-tag muted">${p.delivery}</span>
+                </div>
+              </div>
+              <div class="platform-price-row">
+                <span class="platform-price">¥${p.price}</span>
+                <span class="platform-price-unit">到手</span>
+              </div>
             </div>
             ${
               p.discounts
-                ? `<div class="platform-shops">商品¥${p.productPrice} · 包装¥${p.packageFee} · 配送¥${p.deliveryFee} · 优惠¥${p.discounts.total}</div>`
+                ? `<div class="price-breakdown">
+                    <span>商品 ¥${p.productPrice}</span>
+                    <span>包装 ¥${p.packageFee}</span>
+                    <span>配送 ¥${p.deliveryFee}</span>
+                    <span class="save">优惠 -¥${p.discounts.total}</span>
+                  </div>`
                 : ''
             }
-            <div class="platform-shops">${p.shops} 家相关店铺</div>
+            <div class="platform-meta-row">
+              <span>${p.shops} 家相关店铺</span>
+              <span>价格以平台结算页为准</span>
+            </div>
           </div>
           <button class="platform-go-btn" data-platform="${p.id}">去下单</button>
         </div>
