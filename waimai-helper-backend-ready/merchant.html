@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <title>商家详情 - 外卖省钱助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app merchant-app">
+    <header class="merchant-page-header">
+      <a href="javascript:history.back()" class="back-btn" aria-label="返回">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+      <span class="page-title">商家详情</span>
+      <span class="header-placeholder"></span>
+    </header>
+
+    <div class="merchant-header-card" id="merchantHeader">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <div class="menu-tabs" id="menuTabs"></div>
+
+    <section class="menu-section-wrap">
+      <div id="menuList"></div>
+    </section>
+
+    <section class="reviews-section">
+      <h2 class="section-title">用户评价</h2>
+      <div id="reviewList"></div>
+    </section>
+
+    <div class="cart-bar" id="cartBar" hidden>
+      <div class="cart-bar-left">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+        <span class="cart-total">¥<span id="cartTotal">0</span></span>
+      </div>
+      <button class="cart-checkout" id="checkoutBtn">去结算</button>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/address-store.js"></script>
+  <script src="js/order-store.js"></script>
+  <script src="js/merchant.js"></script>
+</body>
+</html>

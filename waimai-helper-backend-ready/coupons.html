@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <title>我的优惠券 - 外卖省钱助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app coupons-app">
+    <header class="page-header">
+      <a href="index.html" class="back-btn" aria-label="返回首页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+      <h1 class="page-title">我的优惠券</h1>
+      <span class="header-placeholder"></span>
+    </header>
+
+    <div class="coupon-summary" id="couponSummary">
+      <div class="summary-item">
+        <span class="summary-num" id="availableCount">-</span>
+        <span class="summary-label">可用</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span class="summary-num" id="totalSaving">-</span>
+        <span class="summary-label">可省(元)</span>
+      </div>
+    </div>
+
+    <div class="coupon-tabs" id="couponTabs">
+      <button class="coupon-tab active" data-status="available">可用</button>
+      <button class="coupon-tab" data-status="used">已使用</button>
+      <button class="coupon-tab" data-status="expired">已过期</button>
+    </div>
+
+    <div class="coupon-list" id="couponList">
+      <div class="skeleton-list">
+        <div class="skeleton-coupon"></div>
+        <div class="skeleton-coupon"></div>
+        <div class="skeleton-coupon"></div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item" data-page="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>首页</span>
+      </a>
+      <a href="discover.html" class="nav-item" data-page="discover">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <span>发现</span>
+      </a>
+      <a href="coupons.html" class="nav-item active" data-page="coupons">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 12h20" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span>优惠券</span>
+      </a>
+      <a href="profile.html" class="nav-item" data-page="profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <span>我的</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/coupons.js"></script>
+</body>
+</html>

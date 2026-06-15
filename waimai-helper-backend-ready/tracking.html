@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <title>配送追踪 - 外卖省钱助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app tracking-app">
+    <header class="tracking-header">
+      <a href="orders.html" class="back-btn dark" aria-label="返回">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+      <div class="tracking-status" id="trackingStatus">
+        <h1>配送中</h1>
+        <p id="etaText">预计 12 分钟送达</p>
+      </div>
+    </header>
+
+    <div class="tracking-map" id="trackingMap">
+      <div class="map-grid"></div>
+      <svg class="map-route" viewBox="0 0 300 400" preserveAspectRatio="none">
+        <path class="route-line" d="M 60 80 Q 120 200 80 320" />
+      </svg>
+      <div class="map-pin merchant-pin" id="merchantPin">
+        <span class="pin-emoji" id="merchantEmoji">🍲</span>
+        <span class="pin-label" id="merchantLabel">商家</span>
+      </div>
+      <div class="map-pin home-pin">
+        <span class="pin-emoji">🏠</span>
+        <span class="pin-label">收货地址</span>
+      </div>
+      <div class="map-rider" id="mapRider">
+        <span>🛵</span>
+      </div>
+    </div>
+
+    <div class="tracking-timeline" id="timeline"></div>
+
+    <div class="rider-card" id="riderCard">
+      <div class="rider-avatar">🧑‍🦱</div>
+      <div class="rider-info">
+        <div class="rider-name">骑手 李师傅</div>
+        <div class="rider-meta">好评率 99% · 配送 1286 单</div>
+      </div>
+      <a href="tel:13800138000" class="rider-call">📞</a>
+    </div>
+
+    <div class="tracking-order" id="orderSummary"></div>
+  </div>
+
+  <script src="js/address-store.js"></script>
+  <script src="js/order-store.js"></script>
+  <script src="js/tracking.js"></script>
+</body>
+</html>

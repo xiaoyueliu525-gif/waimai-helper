@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <title>收货地址 - 外卖省钱助手</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app addresses-app">
+    <header class="page-header">
+      <a href="profile.html" class="back-btn" aria-label="返回">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </a>
+      <h1 class="page-title">收货地址</h1>
+      <button class="header-action" id="btnAdd">新增</button>
+    </header>
+
+    <div class="address-list" id="addressList"></div>
+
+  </div>
+
+  <!-- 地址表单弹窗 -->
+  <div class="modal-overlay" id="addressModal" hidden>
+    <div class="modal address-form-modal">
+      <h2 class="modal-title-lg" id="formTitle">新增地址</h2>
+      <form id="addressForm">
+        <input type="hidden" id="formId">
+        <label class="form-field">
+          <span>联系人</span>
+          <input type="text" id="formName" required placeholder="姓名">
+        </label>
+        <label class="form-field">
+          <span>手机号</span>
+          <input type="tel" id="formPhone" required placeholder="11位手机号" pattern="1\d{10}">
+        </label>
+        <label class="form-field">
+          <span>所在地区</span>
+          <input type="text" id="formRegion" required placeholder="省市区">
+        </label>
+        <label class="form-field">
+          <span>详细地址</span>
+          <input type="text" id="formDetail" required placeholder="街道门牌号">
+        </label>
+        <div class="form-tags">
+          <span>标签</span>
+          <div class="tag-options" id="tagOptions">
+            <button type="button" class="tag-option active" data-tag="家">家</button>
+            <button type="button" class="tag-option" data-tag="公司">公司</button>
+            <button type="button" class="tag-option" data-tag="学校">学校</button>
+          </div>
+        </div>
+        <label class="form-check">
+          <input type="checkbox" id="formDefault">
+          <span>设为默认地址</span>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="btnCancel">取消</button>
+          <button type="submit" class="btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/address-store.js"></script>
+  <script src="js/addresses.js"></script>
+</body>
+</html>
