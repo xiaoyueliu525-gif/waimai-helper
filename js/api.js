@@ -88,6 +88,18 @@ const FoodAPI = (() => {
     return cache;
   }
 
+  async function fetchBackend(path) {
+    if (location.protocol === 'file:') return null;
+    try {
+      const res = await fetch(path);
+      if (!res.ok) return null;
+      const json = await res.json();
+      return json.ok ? json.data : null;
+    } catch {
+      return null;
+    }
+  }
+
   function delay(ms = 300) {
     return new Promise((r) => setTimeout(r, ms));
   }
@@ -123,6 +135,9 @@ const FoodAPI = (() => {
     },
 
     async search(keyword) {
+      const backend = await fetchBackend(`/api/search?q=${encodeURIComponent(keyword)}`);
+      if (backend) return backend;
+
       const data = await loadData();
       await delay(350);
       const q = keyword.trim().toLowerCase();
@@ -177,10 +192,35 @@ const FoodAPI = (() => {
     },
 
     async getMerchants(category) {
+      const params = new URLSearchParams();
+      if (category && category !== 'all') params.set('category', category);
+      const path = `/api/merchants${params.toString() ? `?${params.toString()}` : ''}`;
+      const backend = await fetchBackend(path);
+      if (backend) return backend;
+
       const data = await loadData();
       await delay(200);
       if (!category || category === 'all') return data.merchants;
       return data.merchants.filter((m) => m.category === category);
+    },
+
+    async getProducts(merchantId) {
+      const path = merchantId ? `/api/products?merchantId=${encodeURIComponent(merchantId)}` : '/api/products';
+      const backend = await fetchBackend(path);
+      if (backend) return backend;
+
+      const data = await loadData();
+      return (data.menus || [])
+        .filter((m) => !merchantId || m.merchantId === Number(merchantId))
+        .flatMap((m) =>
+          m.sections.flatMap((section) =>
+            section.items.map((item) => ({
+              ...item,
+              merchantId: m.merchantId,
+              sectionName: section.name,
+            }))
+          )
+        );
     },
 
     async getMerchant(id) {

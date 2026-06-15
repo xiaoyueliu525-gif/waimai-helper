@@ -63,8 +63,8 @@ function renderHotTags(tags) {
     .join('');
 }
 
-function renderPlatformCards(keyword) {
-  const offers = PlatformCompare.getOffers(keyword);
+async function renderPlatformCards(keyword) {
+  const offers = await PlatformCompare.getOffers(keyword);
   const bestPrice = PlatformCompare.getBestPrice(offers);
 
   return `
@@ -89,6 +89,11 @@ function renderPlatformCards(keyword) {
               <span class="platform-tag">${p.coupon}</span>
               <span class="platform-tag muted">${p.delivery}</span>
             </div>
+            ${
+              p.discounts
+                ? `<div class="platform-shops">商品¥${p.productPrice} · 包装¥${p.packageFee} · 配送¥${p.deliveryFee} · 优惠¥${p.discounts.total}</div>`
+                : ''
+            }
             <div class="platform-shops">${p.shops} 家相关店铺</div>
           </div>
           <button class="platform-go-btn" data-platform="${p.id}">去下单</button>
@@ -100,8 +105,8 @@ function renderPlatformCards(keyword) {
   `;
 }
 
-function renderSearchResults(data, keyword) {
-  let html = renderPlatformCards(keyword);
+async function renderSearchResults(data, keyword) {
+  let html = await renderPlatformCards(keyword);
 
   if (data.total === 0) {
     html += `
@@ -202,7 +207,7 @@ async function handleSearch() {
   searchResultsBody.innerHTML = '<div class="loading-spinner"></div>';
 
   const data = await FoodAPI.search(keyword);
-  renderSearchResults(data, keyword);
+  await renderSearchResults(data, keyword);
 
   searchBtn.disabled = false;
   searchBtn.textContent = '搜索';

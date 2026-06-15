@@ -66,8 +66,38 @@ const PlatformCompare = (() => {
     };
   }
 
-  function getOffers(keyword) {
+  async function getOffers(keyword) {
     const q = keyword.trim();
+    if (location.protocol !== 'file:') {
+      try {
+        const res = await fetch(`/api/compare?keyword=${encodeURIComponent(q)}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.ok && json.data?.quotes) {
+            return json.data.quotes.map((quote) => ({
+              id: quote.platform,
+              name: quote.platformName,
+              theme: quote.theme,
+              icon: quote.icon,
+              shop: quote.storeName,
+              price: quote.finalPrice,
+              productPrice: quote.productPrice,
+              packageFee: quote.packageFee,
+              deliveryFee: quote.deliveryFee,
+              discounts: quote.discounts,
+              coupon: quote.coupon,
+              delivery: `${quote.etaMinutes}分钟`,
+              shops: quote.shops,
+              storeUrl: quote.storeUrl,
+              keyword: q,
+            }));
+          }
+        }
+      } catch {
+        /* 本地静态预览时使用前端 mock */
+      }
+    }
+
     const preset = OFFERS[q] || OFFERS[q.replace(/\s/g, '')];
 
     return PLATFORMS.map((p) => {
