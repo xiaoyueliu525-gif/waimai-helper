@@ -134,8 +134,14 @@ const FoodAPI = (() => {
       return foods[Math.floor(Math.random() * foods.length)];
     },
 
-    async search(keyword) {
-      const backend = await fetchBackend(`/api/search?q=${encodeURIComponent(keyword)}`);
+    async search(keyword, location) {
+      const params = new URLSearchParams();
+      params.set('q', keyword);
+      if (typeof LocationStore !== 'undefined') {
+        const locationParams = LocationStore.toQuery(location);
+        locationParams.forEach((value, key) => params.set(key, value));
+      }
+      const backend = await fetchBackend(`/api/search?${params.toString()}`);
       if (backend) return backend;
 
       const data = await loadData();

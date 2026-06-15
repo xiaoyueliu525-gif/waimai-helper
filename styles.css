@@ -92,12 +92,28 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
+  max-width: 260px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.8125rem;
   font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.location span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon-location {
+  flex: 0 0 auto;
   width: 16px;
   height: 16px;
 }
@@ -1220,6 +1236,76 @@ body {
 .btn-primary {
   background: var(--primary);
   color: #fff;
+}
+
+.location-modal {
+  text-align: left;
+}
+
+.location-current {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.location-actions {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.location-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.location-action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.location-action strong,
+.location-action em {
+  display: block;
+  font-style: normal;
+}
+
+.location-action strong {
+  font-size: 0.9375rem;
+}
+
+.location-action em {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.location-link {
+  text-align: center;
+  text-decoration: none;
 }
 
 .btn-primary:active {

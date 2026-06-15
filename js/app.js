@@ -19,6 +19,16 @@ const modalTip = document.getElementById('modalTip');
 const retryBtn = document.getElementById('retryBtn');
 const acceptBtn = document.getElementById('acceptBtn');
 const headerCouponBadge = document.getElementById('headerCouponBadge');
+const locationButton = document.getElementById('locationButton');
+const locationText = document.getElementById('locationText');
+const locationModal = document.getElementById('locationModal');
+const locationCurrent = document.getElementById('locationCurrent');
+const btnUseGps = document.getElementById('btnUseGps');
+const btnUseDefaultAddress = document.getElementById('btnUseDefaultAddress');
+const btnCloseLocation = document.getElementById('btnCloseLocation');
+const defaultAddressHint = document.getElementById('defaultAddressHint');
+
+let currentLocation = null;
 
 function renderCategories(categories) {
   categoriesGrid.innerHTML = categories
@@ -63,8 +73,65 @@ function renderHotTags(tags) {
     .join('');
 }
 
+function updateLocationView() {
+  currentLocation = LocationStore.getCurrent();
+  const defaultAddress = AddressStore.getDefault();
+  defaultAddressHint.textContent = defaultAddress
+    ? `${defaultAddress.region} ${defaultAddress.detail}`
+    : '还没有默认地址';
+
+  if (!currentLocation) {
+    locationText.textContent = '选择位置';
+    locationCurrent.textContent = '暂未选择位置，搜索结果会使用默认区域。';
+    return;
+  }
+
+  locationText.textContent = currentLocation.label || currentLocation.address || '当前位置';
+  const detail = currentLocation.lat && currentLocation.lng
+    ? `${currentLocation.address} · ${currentLocation.lat}, ${currentLocation.lng}`
+    : currentLocation.address;
+  locationCurrent.textContent = detail || '已选择位置';
+}
+
+function openLocationModal() {
+  updateLocationView();
+  locationModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLocationModal() {
+  locationModal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+async function useGpsLocation() {
+  btnUseGps.disabled = true;
+  btnUseGps.querySelector('em').textContent = '正在获取位置...';
+  try {
+    currentLocation = await LocationStore.useBrowserLocation();
+    updateLocationView();
+    closeLocationModal();
+  } catch (error) {
+    alert(error.message || '定位失败');
+  } finally {
+    btnUseGps.disabled = false;
+    btnUseGps.querySelector('em').textContent = '浏览器会请求一次定位权限';
+  }
+}
+
+function useDefaultAddress() {
+  const addr = AddressStore.getDefault();
+  if (!addr) {
+    locationCurrent.textContent = '还没有默认收货地址，可以先去地址管理添加。';
+    return;
+  }
+  currentLocation = LocationStore.fromAddress(addr);
+  updateLocationView();
+  closeLocationModal();
+}
+
 async function renderPlatformCards(keyword) {
-  const offers = await PlatformCompare.getOffers(keyword);
+  const offers = await PlatformCompare.getOffers(keyword, currentLocation);
   const bestPrice = PlatformCompare.getBestPrice(offers);
 
   return `
@@ -206,7 +273,7 @@ async function handleSearch() {
   showSearchMode(true);
   searchResultsBody.innerHTML = '<div class="loading-spinner"></div>';
 
-  const data = await FoodAPI.search(keyword);
+  const data = await FoodAPI.search(keyword, currentLocation);
   await renderSearchResults(data, keyword);
 
   searchBtn.disabled = false;
@@ -238,6 +305,14 @@ async function openLottery() {
 }
 
 function bindEvents() {
+  locationButton.addEventListener('click', openLocationModal);
+  btnCloseLocation.addEventListener('click', closeLocationModal);
+  btnUseGps.addEventListener('click', useGpsLocation);
+  btnUseDefaultAddress.addEventListener('click', useDefaultAddress);
+  locationModal.addEventListener('click', (e) => {
+    if (e.target === locationModal) closeLocationModal();
+  });
+
   lotteryBtn.addEventListener('click', openLottery);
   retryBtn.addEventListener('click', async () => {
     if (Lottery.isRunning) return;
@@ -313,6 +388,7 @@ function bindEvents() {
 }
 
 async function init() {
+  updateLocationView();
   bindEvents();
   initBottomNav('home');
 

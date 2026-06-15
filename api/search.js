@@ -9,6 +9,7 @@ module.exports = function handler(req, res) {
   const q = String(query.get('q') || '').trim();
   const lat = query.get('lat');
   const lng = query.get('lng');
+  const address = String(query.get('address') || '').trim();
 
   if (!q) {
     sendError(res, 400, 'Missing search keyword', { required: 'q' });
@@ -27,7 +28,7 @@ module.exports = function handler(req, res) {
       : firstMerchant
         ? firstMerchant.name
         : undefined,
-    address: `${lat || ''},${lng || ''}`,
+    address: address || `${lat || ''},${lng || ''}`,
   });
 
   sendJson(res, 200, {
@@ -39,6 +40,7 @@ module.exports = function handler(req, res) {
       location: {
         lat: lat ? Number(lat) : null,
         lng: lng ? Number(lng) : null,
+        address: address || null,
       },
     },
   });

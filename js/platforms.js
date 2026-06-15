@@ -66,11 +66,17 @@ const PlatformCompare = (() => {
     };
   }
 
-  async function getOffers(keyword) {
+  async function getOffers(keyword, userLocation) {
     const q = keyword.trim();
-    if (location.protocol !== 'file:') {
+    if (window.location.protocol !== 'file:') {
       try {
-        const res = await fetch(`/api/compare?keyword=${encodeURIComponent(q)}`);
+        const params = new URLSearchParams();
+        params.set('keyword', q);
+        if (typeof LocationStore !== 'undefined') {
+          const locationParams = LocationStore.toQuery(userLocation);
+          locationParams.forEach((value, key) => params.set(key, value));
+        }
+        const res = await fetch(`/api/compare?${params.toString()}`);
         if (res.ok) {
           const json = await res.json();
           if (json.ok && json.data?.quotes) {

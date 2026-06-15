@@ -14,13 +14,13 @@
   <div class="app">
     <header class="header">
       <div class="header-top">
-        <div class="location">
+        <button class="location" id="locationButton" type="button">
           <svg class="icon-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 21s-8-4.5-8-11a8 8 0 1 1 16 0c0 6.5-8 11-8 11z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
-          <span>附近 · 1.2km</span>
-        </div>
+          <span id="locationText">选择位置</span>
+        </button>
         <a href="coupons.html" class="btn-coupon" aria-label="我的优惠券">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="6" width="20" height="12" rx="2"/>
@@ -35,6 +35,33 @@
         <span class="greeting-main">今天吃什么</span>
       </h1>
     </header>
+
+    <div class="modal-overlay" id="locationModal" hidden>
+      <div class="modal location-modal">
+        <h2 class="modal-title-lg">选择配送位置</h2>
+        <p class="location-current" id="locationCurrent">暂未选择位置</p>
+        <div class="location-actions">
+          <button class="location-action" id="btnUseGps" type="button">
+            <span class="location-action-icon">⌖</span>
+            <span>
+              <strong>使用当前位置</strong>
+              <em>浏览器会请求一次定位权限</em>
+            </span>
+          </button>
+          <button class="location-action" id="btnUseDefaultAddress" type="button">
+            <span class="location-action-icon">⌂</span>
+            <span>
+              <strong>使用默认收货地址</strong>
+              <em id="defaultAddressHint">从地址簿读取</em>
+            </span>
+          </button>
+        </div>
+        <div class="modal-actions">
+          <a class="btn-secondary location-link" href="addresses.html">管理地址</a>
+          <button class="btn-primary" id="btnCloseLocation" type="button">完成</button>
+        </div>
+      </div>
+    </div>
 
     <section class="search-section">
       <div class="search-box">
@@ -152,6 +179,8 @@
     </nav>
   </div>
 
+  <script src="js/address-store.js"></script>
+  <script src="js/location-store.js"></script>
   <script src="js/api.js"></script>
   <script src="js/platforms.js"></script>
   <script src="js/lottery.js"></script>

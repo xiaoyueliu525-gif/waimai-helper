@@ -10,6 +10,8 @@ module.exports = function handler(req, res) {
   const productId = query.get('productId');
   const keyword = String(query.get('keyword') || '').trim();
   const address = String(query.get('address') || '').trim();
+  const lat = query.get('lat');
+  const lng = query.get('lng');
 
   let merchant = null;
   let product = null;
@@ -43,7 +45,7 @@ module.exports = function handler(req, res) {
     merchantName: merchant ? merchant.name : '',
     productName: product ? product.name : keyword,
     productPrice: product ? product.price : undefined,
-    address,
+    address: address || `${lat || ''},${lng || ''}`,
   });
 
   sendJson(res, 200, {
@@ -53,6 +55,11 @@ module.exports = function handler(req, res) {
       product,
       quotes,
       bestQuote: quotes[0] || null,
+      location: {
+        lat: lat ? Number(lat) : null,
+        lng: lng ? Number(lng) : null,
+        address: address || null,
+      },
       pricingFormula:
         'finalPrice = productPrice + packageFee + deliveryFee - platformDiscount - merchantDiscount - couponDiscount',
       source: 'mock-provider',
